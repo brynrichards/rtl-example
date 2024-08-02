@@ -1,0 +1,33 @@
+name: Deploy rtl-example
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-template.yml
+
+  deploy-to-dev:
+    needs: build
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      name: dev
+
+  deploy-to-staging:
+    needs:
+      - build
+      - deploy-to-dev
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      name: staging
+
+  deploy-to-prod:
+    needs:
+      - build
+      - deploy-to-staging
+    uses: ./.github/workflows/deploy-template.yml
+    with:
+      name: prod

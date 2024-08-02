@@ -1,0 +1,24 @@
+name: Deploy rtl-example Template
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: [ubuntu-latest]
+    environment: ${{ inputs.name }}
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-zip
+          path: ./build
+
+      - name: Fake deploy action
+        run: |
+          echo Deploying to ${{ inputs.name }}, with ENV_NAME environment variable: ${{ env.ENV_NAME }}
+          cat build/test.txt

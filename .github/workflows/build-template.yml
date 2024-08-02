@@ -1,0 +1,21 @@
+name: Build rtl-example Template
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v2
+      
+      - name: Fake build action
+        run: mkdir -p build; cp test.txt build/test.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-zip
+          path: ./build
+          if-no-files-found: error
