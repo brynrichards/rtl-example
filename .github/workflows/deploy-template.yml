@@ -20,5 +20,5 @@ jobs:
 
       - name: Fake deploy action
         run: |
-          echo Deploying to ${{ inputs.name }}, with ENV_NAME environment variable: ${{ env.ENV_NAME }}
+          echo Deploying to ${{ inputs.name }}, with ENV_NAME environment variable: ${{ vars.ENV_NAME }}
           cat build/test.txt
